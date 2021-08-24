@@ -1,4 +1,4 @@
-# Ragnarok Client
+# Ragnarok Server
 Ragnarok is an open source security framework for analysing vulnerability in network servers.
 
 This repository contains the Ragnarok client, as well as an ephemeral form of the Diffie-Hellman key exchange. 
