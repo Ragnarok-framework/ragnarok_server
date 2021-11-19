@@ -3,19 +3,21 @@ import socket
 import struct
 import argparse
 
-def chksum(packet: bytes) -> int:
-    """ Generation of starting checksum """
-    if len(packet) % 2 != 0:
-        packet += b'\0'
-
-    res = sum(array.array("H", packet))
-    res = (res >> 16) + (res & 0xffff)
-    res += res >> 16
-
-    return (~res) & 0xffff
 
 class TCPPacket:
     """ Class desined for generation packages with specific data """
+
+    def chksum(packet: bytes) -> int:
+        """ Generation of starting checksum """
+        if len(packet) % 2 != 0:
+            packet += b'\0'
+
+        res = sum(array.array("H", packet))
+        res = (res >> 16) + (res & 0xffff)
+        res += res >> 16
+
+        return (~res) & 0xffff
+
     def __init__(self,
                  src_host:  str,
                  src_port:  int,
@@ -50,7 +52,7 @@ class TCPPacket:
             len(packet)                         # TCP Length
         )
 
-        checksum = chksum(pseudo_hdr + packet)
+        checksum = TCPPacket().chksum(pseudo_hdr + packet)
         packet = packet[:16] + struct.pack('H', checksum) + packet[18:]
         print(packet)
         return packet
