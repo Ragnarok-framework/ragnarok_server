@@ -19,7 +19,10 @@ class PortFinder:
             with Lock():
                 protocol = 'tcp'
                 print("Port: %s => %s" %(port, socket.getservbyport(port, protocol)))
+<<<<<<< HEAD
 
+=======
+>>>>>>> 91416013f9ef4e59fff312d3e0921a6cab98dd12
         finally:
             starter.close()
 
@@ -35,7 +38,10 @@ class PortFinder:
         """ Definiton of the ip to be scanned using a priority queue """
         global queue
         N_THREADS = 100
+<<<<<<< HEAD
 
+=======
+>>>>>>> 91416013f9ef4e59fff312d3e0921a6cab98dd12
         for thread in range (N_THREADS):
             thread = Thread(target = PortFinder().scan_thread)
             thread.daemon = True
@@ -43,5 +49,22 @@ class PortFinder:
 
         for num in ports:
             queue.put(num)
+<<<<<<< HEAD
 
         queue.join()
+=======
+        queue.join()
+
+#if __name__ == "__main__":
+#    parser = argparse.ArgumentParser(description="Simple port scanner")
+#    parser.add_argument("target_ip", help="target_ip to scan.")
+#    parser.add_argument("--ports", "-p", dest="port_range", default="1-65535", help="Port range to scan, default is 1-65535 (all ports)")
+#    args = parser.parse_args()
+#    target_ip, port_range = args.target_ip, args.port_range
+#
+#    start_port, end_port = port_range.split("-")
+#    start_port, end_port = int(start_port), int(end_port)
+#
+#    ports = [ p for p in range(start_port, end_port)]
+#    PortFinder().main(target_ip, ports)
+>>>>>>> 91416013f9ef4e59fff312d3e0921a6cab98dd12
