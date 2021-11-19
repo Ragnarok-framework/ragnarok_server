@@ -2,7 +2,6 @@ import array
 import socket
 import struct
 
-<<<<<<< HEAD
 class TCPPacket:
     """ Class desined for generating packages with specific data """
 
@@ -17,23 +16,6 @@ class TCPPacket:
 
         return (~res) & 0xffff
 
-=======
-
-class TCPPacket:
-    """ Class desined for generation packages with specific data """
-
-    def chksum(packet: bytes) -> int:
-        """ Generation of starting checksum """
-        if len(packet) % 2 != 0:
-            packet += b'\0'
-
-        res = sum(array.array("H", packet))
-        res = (res >> 16) + (res & 0xffff)
-        res += res >> 16
-
-        return (~res) & 0xffff
-
->>>>>>> 91416013f9ef4e59fff312d3e0921a6cab98dd12
     def __init__(self,
                  src_host:  str,
                  src_port:  int,
