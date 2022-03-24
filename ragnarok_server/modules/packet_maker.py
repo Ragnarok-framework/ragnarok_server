@@ -3,6 +3,7 @@ import socket
 import struct
 
 class TCPPacket:
+    
     """ Class desined for generating packages with specific data """
 
     def chksum(packet: bytes) -> int:

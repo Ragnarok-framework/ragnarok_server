@@ -4,15 +4,21 @@ from cryptography.hazmat.primitives.asymmetric import dh
 from cryptography.hazmat.primitives.kdf.hkdf import HKDF
 
 class ServerSocket(socketserver.BaseRequestHandler):
+
 	""" Generator for server sided secure connections with DH """
+
 	def init_diffie_hellman(self):
+
 		""" Initiation of the DH key exchange """
+
 		if self.request.recv(1024).decode() != "connected":
 		   print("Error while connecting")
 		parameters = dh.generate_private_key()
 		self.private_key = parameters.generate_private_key()
 		self.peer_public_key = parameters.generate_private_key().public_key()
+
 		# Share of public secret between server and client
+
 		first_step = "{"
 		first_step += "\"dh-keyexchange\":"
 		first_step += "{"
@@ -49,9 +55,3 @@ class ServerSocket(socketserver.BaseRequestHandler):
 		# Initiation of DH secure transport layer (from the server side)
 		self.init_diffie_hellman()
 		print("> The secret key is {}\n".format(self.__dh.key))
-		
-def start_server(debugflag):
-	""" Start of the server, then initiation of the serve forever """
-	server = socketserver.ThreadingTCPServer(("", 50000), ServerSocket)
-	server.conn = debugflag
-	server.serve_forever()

@@ -3,12 +3,15 @@ import socket
 from queue import Queue
 
 class PortFinder:
-    global queue
-    queue = Queue()
-    global output
-    output = []
+
     def pscan(self, port):
         """ Port scanner made to discover services and addresses (optimised with multithreading) """
+
+        global queue
+        queue = Queue()
+        global output
+        output = []
+
         try:
             starter = socket.socket()
             starter.connect((target_ip, port))
@@ -25,6 +28,7 @@ class PortFinder:
 
     def scan_thread(self):
         """ Initiation of the scanner """
+
         global queue
         while True:
             num = queue.get()
@@ -33,6 +37,7 @@ class PortFinder:
 
     def main(self, target_ip, ports):
         """ Definiton of the ip to be scanned using a priority queue """
+
         global queue
         N_THREADS = 100
         for thread in range (N_THREADS):
